@@ -352,12 +352,12 @@ WORKDAY_DATA = {
 RATE_TABLE_MD = """
 | Role | Rate/hr | Derived From |
 |---|---|---|
-| Developer | $120 | $768,000 / 6,400 hrs (Meridian) |
-| Business Analyst | $90 | $230,400 / 2,560 hrs (Meridian) |
-| QA Engineer | $100 | $256,000 / 2,560 hrs (Hillman) |
-| Product Manager | $150 | $192,000 / 1,280 hrs (Hillman) |
-| Architect | $200 | $192,000 / 960 hrs (Apex) |
-| Deployment Engineer | $150 | $96,000 / 640 hrs (Hillman) |
+| Developer | USD 120 | 768,000 / 6,400 hrs (Meridian) |
+| Business Analyst | USD 90 | 230,400 / 2,560 hrs (Meridian) |
+| QA Engineer | USD 100 | 256,000 / 2,560 hrs (Hillman) |
+| Product Manager | USD 150 | 192,000 / 1,280 hrs (Hillman) |
+| Architect | USD 200 | 192,000 / 960 hrs (Apex) |
+| Deployment Engineer | USD 150 | 96,000 / 640 hrs (Hillman) |
 """
 
 PERIOD_ACTUALS_EXPLANATION = f"""
@@ -381,9 +381,9 @@ percentage as of the end of {REPORTING_PERIOD_SHORT}:
 
 | Project | PPM Total | % Complete by {REPORTING_PERIOD_SHORT} | Period Actuals |
 |---|---|---|---|
-| Hillman Consultancy | $1,772,800 | 55.7% | $986,400 |
-| Meridian ERP Rollout | $998,400 | 51.3% | $512,000 |
-| Apex Cloud Migration | $1,113,600 | 56.9% | $634,200 |
+| Hillman Consultancy | USD 1,772,800 | 55.7% | USD 986,400 |
+| Meridian ERP Rollout | USD 998,400 | 51.3% | USD 512,000 |
+| Apex Cloud Migration | USD 1,113,600 | 56.9% | USD 634,200 |
 
 In a live integration, Workday provides this number directly via the Financial Management API
 using the period start and end dates as filter parameters. In this prototype it represents
@@ -400,22 +400,26 @@ budget gap is real. This agent assumes both systems are reporting on the same pe
 HILLMAN_GAP_EXPLANATION = f"""
 **Hillman Consultancy: Cost Overrun Gap**
 
-Oracle PPM total cost:    ${hillman_ppm_total:,}
-Workday approved budget:  ${HILLMAN_APPROVED_BUDGET:,}
-Net gap:                  ${hillman_ppm_total - HILLMAN_APPROVED_BUDGET:,}
+| | Amount |
+|---|---|
+| Oracle PPM total cost | USD {hillman_ppm_total:,} |
+| Workday approved budget | USD {HILLMAN_APPROVED_BUDGET:,} |
+| Net gap | USD {hillman_ppm_total - HILLMAN_APPROVED_BUDGET:,} |
 
 **What happened:**
 
-The Workday budget of ${HILLMAN_APPROVED_BUDGET:,} was approved before the Deployment Engineer
+The Workday budget of USD {HILLMAN_APPROVED_BUDGET:,} was approved before the Deployment Engineer
 role was added to the project in Oracle PPM.
 
-The Deployment Engineer contributes $96,000 to the PPM total (1 person x 640 hrs x $150/hr).
-However, Workday had budgeted $43,200 more than PPM on the other three roles (Developers,
-PM, QA), which partially offsets the new role.
+The Deployment Engineer contributes USD 96,000 to the PPM total (1 person x 640 hrs x USD 150/hr).
+However, Workday had budgeted USD 43,200 more than PPM on the other three roles (Developers, PM, QA),
+which partially offsets the new role.
 
-Net shortfall = $96,000 (new role cost) - $43,200 (existing buffer in Workday) = **$52,800**
+**Net shortfall calculation:**
 
-The Deployment Engineer has no corresponding headcount entry in Workday. The $96,000 cost is
+96,000 (new role cost) minus 43,200 (existing buffer in Workday) = **52,800**
+
+The Deployment Engineer has no corresponding headcount entry in Workday. The 96,000 cost is
 committed in PPM but Workday has no approved budget line for this person. That is the gap the
 agent flagged. A budget amendment request needs to be raised in Workday to cover this role.
 """
@@ -426,13 +430,17 @@ MERIDIAN_EXTENSION_EXPLANATION = f"""
 The extension uses a reduced wind-down crew: {MERIDIAN_EXT_DEVS} Developers + {MERIDIAN_EXT_BAS} Business Analyst
 (not the full 7-person delivery team).
 
-Step-by-step calculation:
-- {MERIDIAN_EXT_DEVS} Developers: {MERIDIAN_EXT_DEVS} x 40 hrs x $120/hr = ${MERIDIAN_EXT_DEVS * 40 * RATES["Developer"]:,}/week
-- {MERIDIAN_EXT_BAS} Business Analyst: {MERIDIAN_EXT_BAS} x 40 hrs x $90/hr = ${MERIDIAN_EXT_BAS * 40 * RATES["Business Analyst"]:,}/week
-- Weekly total: ${meridian_ext_weekly:,}/week
-- {MERIDIAN_EXT_WEEKS} weeks x ${meridian_ext_weekly:,} = **${MERIDIAN_EXTENSION_COST:,} total extension cost**
+**Step-by-step calculation:**
 
-This ${MERIDIAN_EXTENSION_COST:,} is committed in Oracle PPM but has NOT been submitted to Workday
+| Role | Calculation | Weekly Cost |
+|---|---|---|
+| {MERIDIAN_EXT_DEVS} Developers | {MERIDIAN_EXT_DEVS} x 40 hrs x USD 120/hr | USD {MERIDIAN_EXT_DEVS * 40 * RATES["Developer"]:,} |
+| {MERIDIAN_EXT_BAS} Business Analyst | {MERIDIAN_EXT_BAS} x 40 hrs x USD 90/hr | USD {MERIDIAN_EXT_BAS * 40 * RATES["Business Analyst"]:,} |
+| **Weekly total** | | **USD {meridian_ext_weekly:,}** |
+
+{MERIDIAN_EXT_WEEKS} weeks x USD {meridian_ext_weekly:,}/week = **USD {MERIDIAN_EXTENSION_COST:,} total extension cost**
+
+This USD {MERIDIAN_EXTENSION_COST:,} is committed in Oracle PPM but has NOT been submitted to Workday
 as a budget amendment. That is the gap the agent detected.
 """
 
