@@ -703,7 +703,7 @@ with st.sidebar:
         st.markdown(PERIOD_ACTUALS_EXPLANATION)
     with st.expander(f"Meridian {MERIDIAN_EXT_WEEKS}-week extension math"):
         st.markdown(MERIDIAN_EXTENSION_EXPLANATION)
-    with st.expander("Hillman overrun: why $52,800 not $96,000"):
+    with st.expander("Hillman overrun: why the gap is not the full role cost"):
         st.markdown(HILLMAN_GAP_EXPLANATION)
 
 # ─────────────────────────────────────────────────────────────
@@ -812,7 +812,7 @@ with ec2:
         st.markdown(MERIDIAN_EXTENSION_EXPLANATION)
 
 with ec3:
-    with st.popover("Hillman overrun: why $52,800 not $96,000", use_container_width=True):
+    with st.popover("Hillman overrun: why the gap is not the full role cost", use_container_width=True):
         st.markdown(HILLMAN_GAP_EXPLANATION)
 
 # ─────────────────────────────────────────────────────────────
