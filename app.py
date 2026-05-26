@@ -641,7 +641,7 @@ with st.sidebar:
     st.markdown("### Configuration")
     st.divider()
 
-     api_key = st.secrets.get("ANTHROPIC_API_KEY", "") or st.text_input(
+    api_key = st.secrets.get("ANTHROPIC_API_KEY", "") or st.text_input(
          "Anthropic API Key",
          type="password",
          placeholder="sk-ant-api03-...",
