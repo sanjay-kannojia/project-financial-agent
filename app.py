@@ -63,9 +63,9 @@ st.markdown("""
     padding: 0 !important;
   }
   .main-header p {
-    color: rgba(255,255,255,0.7) !important;
-    font-size: 12px !important;
-    margin: 4px 0 0 0 !important;
+    color: rgba(255,255,255,0.85) !important;
+    font-size: 15px !important;
+    margin: 6px 0 0 0 !important;
     font-family: 'DM Mono', monospace !important;
   }
 
@@ -453,8 +453,8 @@ st.markdown("""
 <div class="main-header">
   <div style="font-size:32px;">⚡</div>
   <div>
-    <h1>Project Financial Intelligence Agent</h1>
-    <p>Oracle PPM x Workday Financial -- Cross-System Gap Analysis - Powered by Claude AI</p>
+    <h1>PPM & Workday Financial Gap Agent</h1>
+    <p>Oracle PPM x Workday Financial -- Automated Gap Detection & Resolution</p>
   </div>
 </div>
 """, unsafe_allow_html=True)
