@@ -514,6 +514,62 @@ if not st.session_state.tour_dismissed:
             teams raise it over time as they build trust in the agent.
             """)
 
+    # Fourth popover: full width, for users new to Oracle PPM and Workday
+    with st.expander("New to Oracle PPM and Workday Financial? Start here"):
+        nc1, nc2 = st.columns(2)
+        with nc1:
+            st.markdown("""
+**Oracle Project Portfolio Management (PPM)**
+
+Oracle PPM is the system where project managers plan and execute projects. It tracks:
+
+- **Who** is assigned to a project (headcount by role: developers, architects, BAs)
+- **How many hours** each person will work over the project duration
+- **What each role costs** per hour (the billing or cost rate)
+- **Total committed cost** = headcount x hours x rate
+
+The module used in this agent is **Oracle Project Resource Management**, which manages
+resource allocations, planned costs, and schedule commitments per project.
+
+When a project manager adds a new role or extends a timeline, that change is recorded
+immediately in Oracle PPM. But Oracle PPM does not automatically notify Workday.
+""")
+        with nc2:
+            st.markdown("""
+**Workday Financial Management**
+
+Workday Financial is the system where the Finance team manages money. It tracks:
+
+- **Approved Budget**: the formal spend ceiling approved by Finance for each project.
+  This goes through an approval workflow before it becomes official.
+- **Period Actuals**: the real costs already posted in Workday for the current financial
+  period (a quarter, in this case Q1 FY2026). These are approved, recorded transactions:
+  labor charges, contractor invoices, expenses. Not a forecast. What already happened.
+
+The features used here are **Budget Management** and **Period Actuals reporting**.
+
+When a project scope changes in Oracle PPM, Finance does not know unless a budget
+amendment is manually submitted in Workday. That manual step is where gaps are born.
+""")
+        st.divider()
+        st.markdown("""
+**Why the two systems get out of sync**
+
+Oracle PPM and Workday Financial are sold by two different companies and managed by two
+different teams: project managers in PPM, finance controllers in Workday. There is no
+automatic real-time sync between them. Every scope change, new hire, or schedule extension
+in PPM requires a separate budget amendment request in Workday. In practice, those requests
+get missed, delayed, or forgotten. The gap accumulates silently until quarter-end
+reconciliation, by which point it is expensive and disruptive to fix.
+
+**What this agent replaces**
+
+Without this agent, a reconciliation analyst manually exports data from both systems into
+Excel, compares line by line, identifies gaps, and emails Finance to raise amendments.
+This happens once a quarter at best. This agent does the same work in seconds, on demand,
+and with configurable autonomy to resolve small gaps without any human involvement.
+""")
+
     bc1, bc2, bc3 = st.columns([1, 1, 4])
     with bc1:
         if st.button("Got it, dismiss", use_container_width=True, type="primary"):
