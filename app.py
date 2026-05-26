@@ -235,12 +235,11 @@ with st.sidebar:
     st.markdown("### ⚙️ Configuration")
     st.divider()
 
-    api_key = st.text_input(
-        "Anthropic API Key",
-        type="password",
-        placeholder="sk-ant-api03-...",
-        help="Get your key from console.anthropic.com"
-    )
+    api_key = api_key = st.secrets.get("ANTHROPIC_API_KEY", "") or st.text_input(
+    "Anthropic API Key",
+    type="password",
+    placeholder="sk-ant-api03-...",
+)
 
     st.divider()
     st.markdown("### 🎚️ Autonomy Mode")
